@@ -1,0 +1,20 @@
+.wrapper{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  width: 100%;
+  &-numbers {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+}
+.page-number {
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid;
+  cursor: pointer;
+}
+.active {
+  background: #333333;
+  color: white;
+}

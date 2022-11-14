@@ -1,0 +1,14 @@
+.login-form {
+  margin: 10vh 30vw 0 30vw;
+  width: 40vw;
+  & input {
+    width: 100% !important;
+    max-width: 300px;
+    margin-bottom: 30px;
+    font-size: 22px;
+    padding: 5px 10px;
+    &[type="submit"] {
+      max-width: 325px;
+    }
+  }
+}

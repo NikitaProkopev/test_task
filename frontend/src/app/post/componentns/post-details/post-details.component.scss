@@ -1,0 +1,93 @@
+.details {
+  margin: 0 10vw;
+  padding-top: 50px;
+  width: 80vw;
+  &-controls{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 30px;
+    & div{
+      display: flex;
+      gap: 20px
+    }
+    &:first-child button {
+      width: 40px;
+      &:first-child{
+        color: #555555;
+      }
+
+      &:last-child {
+        color: red;
+      }
+    }
+    &__save {
+      padding-bottom: 60px;
+      & button {
+        &:first-child {
+          color: white;
+          background-color: #333333;
+        }
+        &:last-child {
+          color: black;
+        }
+      }
+    }
+  }
+  &-form {
+    padding-bottom: 40px;
+    &-img__wrapper {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      align-items: flex-end;
+      & img {
+        max-height: 250px;
+      }
+    }
+    & label:not(:first-child), input[type='file'] {
+      margin-top: 40px;
+    }
+    & input, & textarea:not([hidden=""]), & div[class="details-form-display"]{
+      display: block;
+      padding: 5px 10px;
+      font-size: 18px;
+      width: calc(100% - 25px);
+      &.readonly{
+        border: none;
+        outline: none;
+      }
+    }
+    & label {
+      font-size: 18px;
+      margin-bottom: 5px;
+      display: block;
+    }
+    & textarea{
+      resize: none;
+      height: 200px;
+      &[name='imgByLink'] {
+        height: 80px;
+      }
+    }
+  }
+  &-categories__text{
+    display: inline-block;
+    padding: 10px;
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    &[clear=''] {
+      background-color: white;
+      color: #333333;
+      border: 1px solid #333333;
+      cursor: pointer;
+    }
+    & span {
+      cursor: pointer;
+    }
+  }
+}

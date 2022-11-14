@@ -1,0 +1,14 @@
+<div class="logout-wrapper">
+  <button (click)="logout()">Log out</button>
+</div>
+<div class="wrapper">
+  <app-posts-filter
+  (updatePost)="onUpdatePostsListFilter($event)"></app-posts-filter>
+  <app-posts-table
+    [postList]="postsList"
+    [pagesCount]="countOfPages"
+    [postListSettings]="postsListSetting"
+    (updatePostsList)="onUpdatePostsList($event)"
+  >
+  </app-posts-table>
+</div>

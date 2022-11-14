@@ -1,0 +1,162 @@
+<div class="details">
+  <div class="details-controls" *ngIf="!isEditPost && !isAddPost">
+    <button (click)="navigateToMain()">&#8592;</button>
+    <div>
+      <button (click)="isEditPost = true">&#9998;</button>
+      <button>X</button>
+    </div>
+  </div>
+  <div class="details-form__wrapper">
+    <form [formGroup]="form" class="details-form">
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        formControlName="title"
+        minlength="3"
+        [readOnly]="!isEditPost && !isAddPost"
+        [ngClass]="{'readonly': !isEditPost && !isAddPost,
+          'error': form.controls['title'].status === 'INVALID' && form.controls['title'].touched}">
+      <div *ngIf="form.controls['title'].touched && form.controls['title'].errors">
+        <div class="error-text" *ngIf="form.controls['title'].errors['required']">
+          Title is required.
+        </div>
+        <div class="error-text" *ngIf="form.controls['title'].errors['minlength']">
+          Title min length is 3
+        </div>
+      </div>
+      <label for="text">Post text:</label>
+      <textarea
+        type="text"
+        name="text"
+        id="text"
+        formControlName="text"
+        minlength="3"
+        [hidden]="!isEditPost && !isAddPost"
+        [ngClass]="{'readonly': !isEditPost && !isAddPost,
+        'error': form.controls['text'].status === 'INVALID' && form.controls['text'].touched}">
+      </textarea>
+      <div *ngIf="form.controls['text'].touched && form.controls['text'].errors">
+        <div class="error-text" *ngIf="form.controls['text'].errors['required']">
+          Text is required.
+        </div>
+        <div class="error-text" *ngIf="form.controls['text'].errors['minlength']">
+          Text min length is 3
+        </div>
+      </div>
+      <div class="details-form-display" *ngIf="!isEditPost && !isAddPost" [innerHTML]="post?.text"></div>
+      <label>Post image:</label>
+      <div class="details-form-img__wrapper">
+          <img [src]="form.controls['img'].value">
+          <button *ngIf="(isEditPost || isAddPost) && form.controls['img'].value" (click)="deleteImg()">Delete image</button>
+      </div>
+      <label for="imgByLink">Post image link:</label>
+      <textarea
+          type="text"
+          name="imgByLink"
+          id="imgByLink"
+          formControlName="imgByLink"
+          (focus)="form.controls['img'].markAsTouched()"
+          [readOnly]="!isEditPost && !isAddPost"
+          *ngIf="form.controls['imgByFile'].value === ''"
+          [ngClass]="{'readonly': !isEditPost && !isAddPost,
+          'error': form.controls['img'].status === 'INVALID' && form.controls['img'].touched}">
+      </textarea>
+      <div *ngIf="form.controls['img'].touched && form.controls['img'].errors">
+        <div class="error-text" *ngIf="form.controls['img'].errors['required']">
+          Img is required.
+        </div>
+      </div>
+      <input
+        #imgInput
+        type="file"
+        name="imgByFile"
+        id="imgByFile"
+        formControlName="imgByFile"
+        accept="image/jpeg, image/png, image/jpg, image/svg"
+        (change)="addNewImg(imgInput)"
+        (focus)="form.controls['img'].markAsTouched()"
+        *ngIf="(isEditPost || isAddPost) && form.controls['imgByLink'].value === ''"
+        [ngClass]="{'readonly': !isEditPost && !isAddPost,
+        'error': form.controls['img'].status === 'INVALID' && form.controls['img'].touched}">
+      <div *ngIf="form.controls['img'].touched && form.controls['img'].errors">
+        <div class="error-text" *ngIf="form.controls['img'].errors['required']">
+          Img is required.
+        </div>
+      </div>
+      <label for="categories">Post categories:</label>
+      <textarea
+        type="text"
+        name="categories"
+        id="categories"
+        formControlName="categories"
+        *ngIf="!isEditPost && !isAddPost && this.post?.categories"
+        [ngClass]="{'readonly': !isEditPost && !isAddPost,
+        'error': form.controls['img'].status === 'INVALID' && form.controls['img'].touched}">
+      </textarea>
+      <div class="details-categories" *ngIf="postCategories.length !== 0 && (isEditPost || isAddPost)">
+          <span class="details-categories__text" *ngFor="let category of postCategories; let i = index">{{category}}
+            &nbsp;
+            <span (click)="removeCategories(i)">X</span>
+          </span>
+        <span class="details-categories__text" clear (click)="clearAllCategories()">Clear all</span>
+      </div>
+      <input
+        type="text"
+        name="categoriesText"
+        formControlName="categoriesText"
+        *ngIf="isEditPost || isAddPost"
+        (focus)="form.controls['categories'].markAsTouched()"
+        placeholder="press space to add category"
+        [ngClass]="{'error': form.controls['categories'].status === 'INVALID' && form.controls['categories'].touched}"
+      >
+      <div *ngIf="form.controls['categories'].touched && form.controls['categories'].errors">
+        <div class="error-text" *ngIf="form.controls['categories'].errors['required']">
+          Categories is required.
+        </div>
+      </div>
+      <label for="author">Post author:</label>
+      <input
+        type="text"
+        name="author"
+        id="author"
+        formControlName="author"
+        minlength="3"
+        [readOnly]="!isEditPost && !isAddPost"
+        [ngClass]="{'readonly': !isEditPost && !isAddPost,
+          'error': form.controls['author'].status === 'INVALID' && form.controls['author'].touched}">
+      <div *ngIf="form.controls['author'].touched && form.controls['author'].errors">
+        <div class="error-text" *ngIf="form.controls['author'].errors['required']">
+          Author is required.
+        </div>
+        <div class="error-text" *ngIf="form.controls['author'].errors['minlength']">
+          Author min length is 3
+        </div>
+      </div>
+      <label for="createDate">Post create date:</label>
+      <input
+        type="text"
+        name="createDate"
+        id="createDate"
+        formControlName="createDate"
+        [readOnly]="!isEditPost && !isAddPost"
+        [ngClass]="{'readonly': !isEditPost && !isAddPost,
+        'error': form.controls['createDate'].status === 'INVALID' && form.controls['createDate'].touched}">
+      <div *ngIf="form.controls['createDate'].touched && form.controls['createDate'].errors">
+        <div class="error-text" *ngIf="form.controls['createDate'].errors['required']">
+          Create date is required.
+        </div>
+        <div class="error-text" *ngIf="form.controls['createDate'].errors['pattern']">
+          Create date must be in dd.mm.yyyy HH:MM AM or PM like "01.01.2000 07:30:00 PM"
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="details-controls details-controls__save" *ngIf="isEditPost || isAddPost">
+    <button (click)="savePostChanges()"
+            [disabled]="form.status === 'INVALID'"
+    >Save</button>
+    <button (click)="cancelChanges()">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.wrapper{
+  display: grid;
+  grid-template-columns: 300px calc(100vw - 420px);
+  gap: 30px;
+  margin-top: 10px;
+  margin-left: 30px;
+  padding-bottom: 70px;
+}
+
+@media (max-width: 1500px) {
+  .wrapper {
+    grid-template-columns: 200px calc(100vw - 360px);
+  }
+}
+
+@media (max-width: 1370px) {
+  .wrapper {
+    gap: 20px;
+    grid-template-columns: 200px calc(100vw - 300px);
+  }
+}
+
+.logout-wrapper {
+  padding: 10px;
+  display: flex;
+  justify-content: right;
+}

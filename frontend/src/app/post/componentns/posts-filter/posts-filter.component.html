@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <form [formGroup]="form">
+    <div class="input-wrapper">
+      <label for="id">Id:</label>
+      <input id="id" type="number" formControlName="id">
+    </div>
+    <div class="input-wrapper">
+      <label for="id">Title:</label>
+      <input id="title" type="text" formControlName="title">
+    </div>
+    <div class="input-wrapper">
+      <label for="description">Description:</label>
+      <input id="description" type="text" formControlName="description">
+    </div>
+    <div class="input-wrapper">
+      <label for="createDate">Created date:</label>
+      <input id="createDate" type="text" formControlName="createDate">
+    </div>
+    <div class="input-wrapper">
+      <label for="author">Author:</label>
+      <input id="author" type="text" formControlName="author">
+    </div>
+    <div class="input-wrapper">
+      <label for="Categories">Categories:</label>
+      <div class="input-wrapper-categories">
+        <div *ngIf="selectedCategoriesList.length !== 0">
+          <span class="input-wrapper-categories__text" *ngFor="let category of selectedCategoriesList; let i = index">{{category}}
+            &nbsp;
+            <span (click)="removeCategories(i)">X</span>
+          </span>
+        </div>
+        <input id="categories" type="text" formControlName="categories" autocomplete="off"
+           (focus)="changeCategoriesListState(true)"
+           (blur)="blurCategoriesList()">
+        <div *ngIf="isDisplayCategories">
+          <ng-container [ngTemplateOutlet]="categoriesList.length !== 0 ? categoriesExist : categoriesNotExist"></ng-container>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #categoriesExist>
+  <p class="category-name" (click)="addCategoryToList(category.name)" *ngFor="let category of categoriesList">{{category.name}}</p>
+</ng-template>
+<ng-template #categoriesNotExist>
+  <p class="category-not-exist">Not exist categories with this name</p>
+</ng-template>

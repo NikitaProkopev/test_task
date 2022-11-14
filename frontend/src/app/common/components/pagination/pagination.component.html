@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <span class="page-number"
+        (click)="selectPage(this.selectedPage - 1)">
+    <
+  </span>
+  <div class="wrapper-numbers">
+    <span class="page-number"
+          *ngFor="let pageNumber of pageNumbersArray;"
+          (click)="selectPage(pageNumber)"
+          [ngClass]="{'active': pageNumber === selectedPage}">
+      <span>{{pageNumber}} </span>
+    </span>
+  </div>
+  <span class="page-number"
+        (click)="selectPage(this.selectedPage + 1)">
+    >
+  </span>
+</div>

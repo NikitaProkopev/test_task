@@ -1,0 +1,91 @@
+<div *ngIf="postList" class="table-wrapper">
+  <table class="post-table">
+    <thead>
+    <tr>
+      <th>
+        <p (click)="orderByClick('id')">
+          Id
+          <ng-container [ngTemplateOutlet]="postListSettings.orderFieldName === 'id' ?
+              postListSettings.orderTypeName === 'ASC' ? asc : desc : null"
+          ></ng-container>
+        </p>
+      </th>
+      <th>
+        <p (click)="orderByClick('title')">
+          Title
+          <ng-container [ngTemplateOutlet]="postListSettings.orderFieldName === 'title' ?
+              postListSettings.orderTypeName === 'ASC' ? asc : desc : null"
+          ></ng-container>
+        </p>
+      </th>
+      <th>
+        <p (click)="orderByClick('description')">
+          Description
+          <ng-container [ngTemplateOutlet]="postListSettings.orderFieldName === 'description' ?
+              postListSettings.orderTypeName === 'ASC' ? asc : desc : null"
+          ></ng-container>
+        </p>
+      </th>
+      <th>
+        <p (click)="orderByClick('categories')">
+          Categories
+          <ng-container [ngTemplateOutlet]="postListSettings.orderFieldName === 'categories' ?
+              postListSettings.orderTypeName === 'ASC' ? asc : desc : null"
+          ></ng-container>
+        </p>
+      </th>
+      <th>
+        <p (click)="orderByClick('author')">
+          Author
+          <ng-container [ngTemplateOutlet]="postListSettings.orderFieldName === 'author' ?
+              postListSettings.orderTypeName === 'ASC' ? asc : desc : null"
+          ></ng-container>
+        </p>
+      </th>
+      <th>
+        <p (click)="orderByClick('createDate')">
+          Create date
+            <ng-container [ngTemplateOutlet]="postListSettings.orderFieldName === 'createDate' ?
+              postListSettings.orderTypeName === 'ASC' ? asc : desc : null"
+            ></ng-container>
+        </p>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let post of postList" (click)="navigateToPostDetails(post.id)" class="post">
+         <td>{{post.id}}</td>
+         <td class="post-title">
+           {{post.title}}
+         </td>
+         <td class="post-description" [innerHTML]="post.description"></td>
+         <td class="post-categories">
+           <div class="post-categories__text">
+             <span class="post-categories__text">Categories: </span>
+             {{post.categories}}
+           </div>
+         </td>
+         <td class="post-author">
+           {{post.author}}
+         </td>
+         <td class="post-date">
+           {{post.createDate}}
+         </td>
+       </tr>
+    </tbody>
+  </table>
+</div>
+<button class="post-add-btn" (click)="navigateToAddPost()">Add new posts</button>
+<div class="pagination-wrapper">
+  <app-pagination
+    [pagesCount]="pagesCount"
+    [selectedPage]="postListSettings.page"
+    (changeSelectedPage)="onSelectedPageChanged($event)"></app-pagination>
+</div>
+
+<ng-template #asc>
+  <span>&nbsp;&uarr;</span>
+</ng-template>
+<ng-template #desc>
+  <span>&nbsp;&darr;</span>
+</ng-template>
